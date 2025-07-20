@@ -7,7 +7,9 @@ pipeline {
       }
     }
     stage("Run files") {
-      sh 'python3 test.py'
+      steps {
+        sh 'python3 test_file.py'
+      }
     }
   }
 }
