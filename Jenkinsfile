@@ -8,7 +8,7 @@ pipeline {
     }
     stage("Run files") {
       steps {
-        sh 'pytest test_file.py --junitxml=report.xml --html=report.xml'
+        sh 'pytest test_file.py --junitxml=report.xml --html=report.html'
       }
     }
   }
@@ -20,7 +20,7 @@ pipeline {
         alwaysLinkToLastBuild: true,
         keepAll: true,
         reportDir: '.',
-        reportFiles: 'report.xml',
+        reportFiles: 'report.html',
         reportName: 'HTML report'
       ])
     }
