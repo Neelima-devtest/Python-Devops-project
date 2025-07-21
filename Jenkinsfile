@@ -8,7 +8,7 @@ pipeline {
     }
     stage("Run files") {
       steps {
-        sh 'pytest login_test.py --junitxml=report.xml --html=report.html --self-contained-html'
+        sh 'pytest login_test.py --junitxml=report.xml --html=report.html '
       }
     }
   }
