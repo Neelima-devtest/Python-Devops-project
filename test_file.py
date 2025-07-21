@@ -1,1 +1,3 @@
-print("Inside the python script")
+def test_login():
+  print("Inside the python script")
+  assert "admin" == "admin"
