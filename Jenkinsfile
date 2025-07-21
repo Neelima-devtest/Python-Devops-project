@@ -8,8 +8,21 @@ pipeline {
     }
     stage("Run files") {
       steps {
-        sh 'python3 test_file.py'
+        sh 'pytest test_file.py --junitxml=report.xml --html=report.xml'
       }
+    }
+  }
+  post {
+    always {
+      junit 'report.xml'
+      publishHTML(target: [
+        allowMissing: false,
+        alwaysLinkToLastBuild: true,
+        keepAll: true,
+        reportDir: '.',
+        reportFiles: 'report.xml',
+        reportName: 'HTML report'
+      ])
     }
   }
 }
