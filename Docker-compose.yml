@@ -1,0 +1,8 @@
+version: '3'
+services:
+  pytest_img:
+    build: .
+    volumes:
+      - reports:/app/reports
+volumes:
+  reports:
