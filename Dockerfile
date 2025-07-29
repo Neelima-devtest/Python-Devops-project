@@ -3,4 +3,4 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 COPY login_test.py .
-CMD ["pytest","--html=reports/report_docker.html"]
+CMD ["pytest","--html=reports/report_docker.html", "--self-contained-html]
