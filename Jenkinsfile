@@ -27,7 +27,7 @@ pipeline {
         includeProperties: false,
         jdk: '',
         results: [[path: 'reports/allure-results']]
-      )]
+      ])
     }
   }
 }
