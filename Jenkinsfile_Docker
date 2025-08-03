@@ -8,7 +8,8 @@ pipeline{
     }
     stage("Run tests in docker container") {
       steps {
-        sh 'docker compose up --abort-on-container-exit'
+//I am using an older docker version, installed within another docker container. So "docker compose" doesn't work there. 
+        sh 'docker-compose up --abort-on-container-exit'
       }
     }
     stage("Publish test reports") {
@@ -26,7 +27,7 @@ pipeline{
   }
   post {
     always {
-      sh 'docker compose down'
+      sh 'docker-compose down'
     }
   }
 }
