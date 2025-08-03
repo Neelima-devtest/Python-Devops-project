@@ -1,0 +1,35 @@
+Start a jenkins container:
+docker run -p 8080:8080 -p 50000:50000 -d jenkins/jenkins:lts (-d is for detached mode)
+
+Take back up of container state:
+docker commit <container_name_or_id> jenkins-backup-image (Creates image from container)
+docker save -o backup-image.tar mybackup/image-name (Creates tar file out of image which can be moved to another machine or saved locally)
+
+How to restore container backup:
+docker load -i backup-image.tar
+docker run -it mybackup/image-name
+
+To login to a container as root user:
+By default, we login as root unless it is configured otherwise in Dockerfile
+In that case, we can overwrite it and login with root user using 
+docker exec -u 0 -it <container_name_or_id> bash
+Here -u 0 represents root user
+
+To save files from docker container
+docker cp <container_name>:/var/jenkins_home ./jenkins_home_backup (This copies file from container to local machine)
+
+To install python in docker container (The below worked in jenkins container):
+apt-get update
+apt-get install -y python3 python3-pip
+apt install python3-requests
+
+docker compose up --build [to build an image from Dockerfile, the path to Dockerfile should be specified in docker-compose.yml]
+The --build forces Docker to build a new image evry time. But if we dont specify it, docker reuses the existing image if nothing has changed.
+If anything has changed or there is no existing image then "docker compose up" will build a new one.
+
+"--self-contained-html" is needed while running pytest and generating html reports. It is to bind all the CSS and JS with the .html file.
+
+docker commit container_name img_name
+This takes a snapshot of container and makes an image from it. It retains the dependencies installed on the container but doesnt retain the files on it.
+
+
