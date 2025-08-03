@@ -1,0 +1,24 @@
+pipeline{
+  agent any
+  stages {
+    stage("Build docker image") {
+      steps {
+        sh 'docker compose build'
+      }
+    }
+    stage("Run tests in docker container") {
+      steps {
+        sh 'docker compose up --abort-on-container-exit'
+      }
+    }
+    stage("Publish test reports") {
+      steps {
+      }
+    }
+  }
+  post {
+    always {
+      sh 'docker compose down'
+    }
+  }
+}
