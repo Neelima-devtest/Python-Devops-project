@@ -1,0 +1,49 @@
+If the html report is missing the test rows, then run the below groovy script in manage jnkins -> script console ->
+System.setProperty(
+  "hudson.model.DirectoryBrowserSupport.CSP",
+  "sandbox allow-scripts allow-same-origin; default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; img-src * data:;"
+)
+
+Run the above script.
+The script removes the CSP header. CSP is contenet security policy and is useful for enforcing protection against XSS. The above script allows pytest-html to run by relaxing the CSP.
+
+
+Steps to install Allure CLI on jenkin sserver:
+# Optional: install curl or wget if missing
+apt-get update && apt-get install -y curl tar
+
+# Download a known working version, e.g., 2.33.0
+cd /tmp
+curl -LO https://sourceforge.net/projects/allure-report.mirror/files/2.33.0/allure-2.33.0.tgz
+
+# Extract and install
+tar -zxvf allure-2.33.0.tgz
+mv allure-2.33.0 /opt/allure
+ln -s /opt/allure/bin/allure /usr/bin/allure
+
+# Confirm
+allure --version
+
+Add allure CLI in jenkins console:
+Go to Manage Jenkins → Global Tool Configuration
+
+Scroll to Allure Commandline
+
+Click Add Allure Commandline
+
+Name it: Allure
+
+Uncheck “Install automatically”
+
+Set path to the Allure binary: /usr/bin/allure
+
+Save the configuration.
+
+
+Update the above name in Jenkinsfile:
+allure([
+  includeProperties: false,
+  jdk: '',
+  commandline: 'Allure',
+  results: [[path: 'reports/allure-results']]
+])
