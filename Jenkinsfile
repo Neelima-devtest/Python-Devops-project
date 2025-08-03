@@ -23,9 +23,11 @@ pipeline {
         reportFiles: 'html_report.html',
         reportName: 'HTML report'
       ])
-      allureincludeProperties: false,
-      jdk: '',
-      results: [[path: 'reports/allure-results']]
+      allure([
+        includeProperties: false,
+        jdk: '',
+        results: [[path: 'reports/allure-results']]
+      )]
     }
   }
 }
